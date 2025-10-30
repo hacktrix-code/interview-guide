@@ -1,0 +1,187 @@
+Leaky Bucket
+
+
+#include <stdio.h>
+void lb1(){
+    int n,t;
+    printf("Enter no.of packets: ");
+    scanf("%d",&n);
+    printf("Enter time: ");
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++){
+        printf("Time %d\n",i);
+        if(i==t){
+            for(int j=1;j<=n;j++){
+                printf("Packet %d sent\n",j);
+            }
+        }
+    }
+    printf("All packets sent successfully\n");
+}
+void lb2(){
+    int n;
+    printf("Enter no.of packets: ");
+    scanf("%d",&n);
+    for(int j=1;j<=n;j++){
+        printf("Time %d ,Packet %d sent\n",j,j);
+    }
+    printf("All packets sent successfully\n");
+    printf("outrate: %d\n",n);
+}
+void main(){
+    int t;
+    printf("Enter testcase: ");
+    scanf("%d",&t);
+    if(t==1) lb1();
+    else lb2();
+}
+
+
+
+
+DVU
+
+#include <stdio.h>
+
+#define INF 999
+#define MAX 10
+
+int main() {
+    int cost[MAX][MAX], dist[MAX][MAX], via[MAX][MAX];
+    int n, i, j, k;
+
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    printf("Enter the cost matrix (use %d for no direct link):\n", INF);
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            scanf("%d", &cost[i][j]);
+            if (i == j)
+                cost[i][j] = 0;
+        }
+    }
+
+    // Initialize distance and via matrices
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            dist[i][j] = cost[i][j];
+            if (i != j && cost[i][j] != INF)
+                via[i][j] = j;
+            else
+                via[i][j] = -1;
+        }
+    }
+
+    // Distance Vector algorithm (Floyd–Warshall type update)
+    for (k = 0; k < n; k++) {
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
+                if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                    via[i][j] = via[i][k];
+                }
+            }
+        }
+    }
+
+    // Print routing tables
+    for (i = 0; i < n; i++) {
+        printf("\nRouting table for Node %d:\n", i);
+        printf("Destination\tNext Hop\tCost\n");
+        for (j = 0; j < n; j++) {
+            if (i != j) {
+                printf("%d\t\t", j);
+                if (via[i][j] != -1)
+                    printf("%d\t\t", via[i][j]);
+                else
+                    printf("-\t\t");
+                printf("%d\n", dist[i][j]);
+            }
+        }
+    }
+
+    return 0;
+}
+
+
+Dijkstra's
+
+#include <stdio.h>
+#include <limits.h>
+
+#define INF 100000
+
+void printPath(int parent[], int j) {
+    if (j == -1)
+        return;
+    printPath(parent, parent[j]);
+    printf("%d ", j);
+}
+
+int main() {
+    int n;
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    int a[n][n];
+    printf("Enter the adjacency matrix (0 for no edge):\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &a[i][j]);
+            if (i != j && a[i][j] == 0)
+                a[i][j] = INF;
+        }
+    }
+
+    int src, dest;
+    printf("Enter source and destination (0-based indices): ");
+    scanf("%d %d", &src, &dest);
+
+    int dist[n], visited[n], parent[n];
+
+    for (int i = 0; i < n; i++) {
+        dist[i] = INF;
+        visited[i] = 0;
+        parent[i] = -1;
+    }
+
+    dist[src] = 0;
+
+    // Dijkstra’s algorithm
+    for (int count = 0; count < n - 1; count++) {
+        int u = -1, min = INF;
+
+        // Find the unvisited node with the smallest distance
+        for (int i = 0; i < n; i++) {
+            if (!visited[i] && dist[i] < min) {
+                min = dist[i];
+                u = i;
+            }
+        }
+
+        if (u == -1)
+            break; // no reachable remaining nodes
+
+        visited[u] = 1;
+
+        // Relaxation step
+        for (int v = 0; v < n; v++) {
+            if (!visited[v] && a[u][v] != INF && dist[u] + a[u][v] < dist[v]) {
+                dist[v] = dist[u] + a[u][v];
+                parent[v] = u;
+            }
+        }
+    }
+
+    if (dist[dest] == INF) {
+        printf("No path exists from %d to %d\n", src, dest);
+    } else {
+        printf("\nShortest distance from %d to %d = %d\n", src, dest, dist[dest]);
+        printf("Path: ");
+        printPath(parent, dest);
+        printf("\n");
+    }
+
+    return 0;
+}
