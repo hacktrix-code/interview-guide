@@ -469,3 +469,170 @@ int main() {
     return 0;
 }
 
+
+OTP:
+
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char text[100], key[100], enc[100], dec[100];
+    int i;
+    printf("Enter plaintext (lowercase letters only): ");
+    scanf("%s", text);
+    printf("Enter key (same length as text): ");
+    scanf("%s", key);
+    int len = strlen(text);
+    for (i = 0; i < len; i++) {
+        enc[i] = ((text[i] - 'a') + (key[i] - 'a')) % 26 + 'a';
+    }
+    enc[i] = '\0';
+    printf("Encrypted text: %s\n", enc);
+    for (i = 0; i < len; i++) {
+        dec[i] = ((enc[i] - 'a') - (key[i] - 'a') + 26) % 26 + 'a';
+    }
+    dec[i] = '\0';
+    printf("Decrypted text: %s\n", dec);
+    return 0;
+}
+OUTPUT
+Enter plaintext (lowercase letters only): hello
+Enter key (same length as text): 5
+Encrypted text: VRSPT
+Decrypted text: hello
+BROADCAST TREE:
+
+#include <stdio.h>
+#define MAX 100
+int main() {
+    int g[MAX][MAX] = {0}, v[MAX] = {0}, q[MAX];
+    int n, e, u, w, r, f = 0, b = 0;
+    printf("Subnets/hosts: ");
+    scanf("%d", &n);
+    printf("Connections: ");
+    scanf("%d", &e);
+    for (int i = 0; i < e; i++) {
+        printf("Edge (u w): ");
+        scanf("%d %d", &u, &w);
+        g[u][w] = g[w][u] = 1;
+    }
+    printf("Root: ");
+    scanf("%d", &r);
+    v[r] = 1;
+    q[b++] = r;
+    printf("\nBroadcast Tree:\n");
+    while (f < b) {
+        int x = q[f++];
+        for (int i = 0; i < n; i++) {
+            if (g[x][i] && !v[i]) {
+                printf("%d -> %d\n", x, i);
+                v[i] = 1;
+                q[b++] = i;
+            }
+        }
+    }
+}
+OUTPUT
+Subnets/hosts: 5
+Connections: 4
+Edge (u v): 1 2
+Edge (u v): 1 3
+Edge (u v):  1 4
+Edge (u v):  0 1
+Root: 0
+Broadcast Tree:
+0 -> 1
+1 -> 2
+1 -> 3
+1 -> 4 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hamming code but works only for 4bits
+ 
+#include <stdio.h>
+int main() {
+    int d3, d5, d6, d7, p1, p2, p4, e, parity;
+    printf("Enter no. of data bits: 4\n");
+    printf("Enter data bits (LSB first): ");  
+    scanf("%d %d %d %d", &d3, &d5, &d6, &d7);
+    printf("Choose parity (0 = even, 1 = odd): ");
+    scanf("%d", &parity);
+    p1 = (d3 + d5 + d7) % 2;
+    p2 = (d3 + d6 + d7) % 2;
+    p4 = (d5 + d6 + d7) % 2;
+    if (parity) {
+        p1 ^= 1;
+        p2 ^= 1;
+        p4 ^= 1;
+    }
+    printf("Hamming code: %d%d%d%d%d%d%d\n", p1, p2, d3, p4, d5, d6, d7);
+    printf("Enter error position (0 for no error): ");
+    scanf("%d", &e);
+    if (e == 1) p1 ^= 1;
+    if (e == 2) p2 ^= 1;
+    if (e == 3) d3 ^= 1;
+    if (e == 4) p4 ^= 1;
+    if (e == 5) d5 ^= 1;
+    if (e == 6) d6 ^= 1;
+    if (e == 7) d7 ^= 1;
+    printf("Code after error: %d%d%d%d%d%d%d\n", p1, p2, d3, p4, d5, d6, d7);
+    int c1 = (p1 + d3 + d5 + d7) % 2;
+    int c2 = (p2 + d3 + d6 + d7) % 2;
+    int c4 = (p4 + d5 + d6 + d7) % 2;
+    if (parity) {
+        c1 ^= 1;
+        c2 ^= 1;
+        c4 ^= 1;
+    }
+    int pos = c4 * 4 + c2 * 2 + c1;
+    if (pos == 0)
+        printf("No error detected.\n");
+    else {
+        printf("Error detected at position: %d\n", pos);
+        if (pos == 1) p1 ^= 1;
+        if (pos == 2) p2 ^= 1;
+        if (pos == 3) d3 ^= 1;
+        if (pos == 4) p4 ^= 1;
+        if (pos == 5) d5 ^= 1;
+        if (pos == 6) d6 ^= 1;
+        if (pos == 7) d7 ^= 1;
+        printf("Corrected code: %d%d%d%d%d%d%d\n", p1, p2, d3, p4, d5, d6, d7);
+    }
+    return 0;
+}
+
+
+output
+
+Enter 4 data bits (d3 d5 d6 d7): 1 0 1 0  
+Choose parity (0 = even, 1 = odd): 0
+Hamming code: 1011010
+Enter error position (0 for no error): 1
+Code after error: 0011010
+Error detected at position: 1
+Corrected code: 1011010
+	
+
+
+
+
+
+
+
+
+
+
+
+
