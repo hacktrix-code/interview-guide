@@ -625,6 +625,64 @@ Error detected at position: 1
 Corrected code: 1011010
 	
 
+#########################################
+# MASTER TEMPLATE : NS2 BASIC STRUCTURE #
+#########################################
+
+# 1) Create Simulator
+set ns [new Simulator]
+
+# 2) Create Trace File (text output)
+set tr [open out.tr w]
+$ns trace-all $tr
+
+# 3) Create NAM File (animation)
+set nm [open out.nam w]
+$ns namtrace-all $nm
+
+# 4) Create Nodes
+set n0 [$ns node]      ;# Sender
+set n1 [$ns node]      ;# Router
+set n2 [$ns node]      ;# Receiver
+
+# 5) Create Links
+# Source->Router link (fast)
+$ns duplex-link $n0 $n1 5Mb 5ms DropTail
+# Router->Dest link (slow → congestion)
+$ns duplex-link $n1 $n2 1Mb 5ms DropTail
+
+# 6) Create UDP Agent
+set udp [new Agent/UDP]
+$ns attach-agent $n0 $udp
+
+# 7) Create Receiver (Sink)
+set null [new Agent/Null]
+$ns attach-agent $n2 $null
+$ns connect $udp $null
+
+# 8) Create Application Traffic
+set cbr [new Application/Traffic/CBR]
+$cbr set packetSize_ 1000
+$cbr set interval_ 0.001
+$cbr attach-agent $udp
+
+# 9) Start/Stop
+$ns at 1.0 "$cbr start"
+$ns at 5.0 "$cbr stop"
+
+# 10) Finish Procedure
+proc finish {} {
+    global ns tr nm
+    $ns flush-trace
+    close $tr
+    close $nm
+    exec nam out.nam &
+    exit 0
+}
+
+# 11) Run Finish & Start Simulator
+$ns at 6.0 "finish"
+$ns run
 
 
 
