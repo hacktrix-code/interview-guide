@@ -1,5 +1,288 @@
-Leaky Bucket
+Character Count'
 
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char msg[100];
+    printf("Enter the msg: ");
+    scanf("%s", msg);
+    int n = strlen(msg), fcnt;
+    printf("Enter the no.of frames: ");
+    scanf("%d", &fcnt);
+    int c = 0; 
+    int fd[fcnt];
+    for(int i=0;i<fcnt;i++){
+        printf("Enter the size of frame %d: ", i + 1);
+        scanf("%d",&fd[i]);
+    }
+    for (int i = 0; i < fcnt; i++) {
+        printf("Frame %d: ", i + 1);
+        for (int j = 0; j < fd[i]; j++) {
+            printf("%c", msg[c]);
+            c++;
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+Selective Repeat
+
+#include <stdio.h>
+#include <stdlib.h>
+void main(){
+    int n;
+    printf("Enter the frame size: ");
+    scanf("%d",&n);
+    int w;
+    printf("Enter the window size: ");
+    scanf("%d",&w);
+    int ack[n];
+    for(int i=0;i<n;i++){
+        ack[i] = 0;
+    }
+    for(int i=0;i<n;i=i+w){
+        for(int j=0;j<w && i+j<n;j++){
+            printf("Sent %d\n",i+j);
+        }
+        for(int j=0;j<w && i+j<n;j++){
+            int k;
+            printf("Enter the acknowledgment of %d: ",i+j);
+            scanf("%d",&k);
+            if(k==1) ack[i+j]=1;
+        }
+        for(int j=0;j<w && i+j<n;j++){
+            if(ack[i+j]==1){
+                printf("Acknowledgment recieved for %d\n",i+j);
+            }
+        }
+        for(int j=0;j<w && i+j<n;j++){
+            while(ack[i+j]==0){
+                printf("Sent %d again\n",i+j);
+                int k;
+                printf("Enter the acknowledgment of %d: ",i+j);
+                scanf("%d",&k);
+                if(k == 1){
+                    ack[i+j] = 1;
+                    printf("Acknowledgment recieved for %d\n",i+j);
+                }
+            }
+        }
+    }
+    printf("successful\n");
+}
+
+Go Back N
+
+#include <stdio.h>
+
+int main() {
+    int n, w;
+    printf("Enter the frame size: ");
+    scanf("%d", &n);
+    printf("Enter the window size: ");
+    scanf("%d", &w);
+    for (int i = 0; i < n; ) {
+        for (int j = i; j < i + w && j < n; j++) {
+            printf("Frame sent for %d\n", j);
+        }
+        int ack;
+        printf("Acknowledgement for frame %d: ", i);
+        scanf("%d", &ack);
+        if (ack == 1) {
+            i++;
+        } else {
+            printf("Frame %d sending again\n", i);
+        }
+    }
+    printf("successful\n");
+    return 0;
+}
+
+
+Character stuffing
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100];
+    printf("Enter the string:");
+    scanf("%s",str);
+    printf("The string is: %s\n",str);
+    
+    char sts[100]=""; //stuffed string
+    strcat(sts, "DLESTX");
+    
+    int j=strlen(sts);
+    int l=strlen(str);
+    for(int i=0;i<l;i++){
+        if(str[i]=='D' && str[i+1]=='L' && str[i+2]=='E'){
+            strcat(sts, "DLE");
+            strcat(sts, "DLE");
+            i+=3;
+            j+=6;
+        }
+        sts[j] = str[i];
+        j++;
+    }
+    sts[j]='\0';
+    strcat(sts, "DLEETX");
+    printf("The stuffed string is: %s\n",sts);
+    
+    char dts[100]=""; //destuffed string
+    int l2 =strlen(sts);
+    j=0;
+    for(int i=6;i<l2-6;i++){
+        if(i+2 < l2){
+            if(sts[i]=='D' && sts[i+1]=='L' && sts[i+2]=='E'){
+                strcat(dts, "DLE");
+                i+=6;
+                j+=3;
+                if(i>=l2-6)break;
+            }
+        }
+        dts[j] = sts[i];
+        j++;
+    }
+    dts[j] = '\0';
+    printf("The destuffed string is: %s\n", dts);
+    return 0;
+}
+
+Bit Stuffing
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[1000];
+    printf("Enter the original bit string: ");
+    scanf("%s", s);
+
+    int n = strlen(s);
+
+    // Bit Stuffing
+    char stuffed[2000];
+    int count = 0, k = 0;
+
+    for (int i = 0; i < n; i++) {
+        stuffed[k++] = s[i];
+        if (s[i] == '1') {
+            count++;
+            if (count == 5) {  // After 5 consecutive 1's, insert a '0'
+                stuffed[k++] = '0';
+                count = 0;
+            }
+        } else {
+            count = 0;
+        }
+    }
+    stuffed[k] = '\0';
+
+    printf("Stuffed: %s\n", stuffed);
+
+    // Bit De-stuffing
+    char destuffed[1000];
+    int j = 0;
+    count = 0;
+
+    for (int i = 0; i < strlen(stuffed); i++) {
+        destuffed[j++] = stuffed[i];
+        if (stuffed[i] == '1') {
+            count++;
+            if (count == 5 && stuffed[i + 1] == '0') {
+                i++; // Skip the stuffed 0
+                count = 0;
+            }
+        } else {
+            count = 0;
+        }
+    }
+    destuffed[j] = '\0';
+
+    printf("Destuffed: %s\n", destuffed);
+
+    return 0;
+}
+
+CRC
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char gen[20], msg[1000], temp[1000];
+    printf("Enter generating polynomial: ");
+    scanf("%s", gen);
+    int gl = strlen(gen);       // generator length
+    int k = gl - 1;
+
+    printf("Enter message: ");
+    scanf("%s", msg);
+    int ml = strlen(msg);       // message length
+
+    // Append k zeros to the message
+    char code[1000];
+    strcpy(code, msg);
+    for (int i = 0; i < k; i++) strcat(code, "0");
+
+    printf("Codeword before division: %s\n", code);
+
+    // Perform Division (XOR operation)
+    strcpy(temp, code);
+    for (int i = 0; i < ml; i++) {
+        if (temp[i] == '1') {
+            for (int j = 0; j < gl; j++) {
+                temp[i + j] = (temp[i + j] == gen[j]) ? '0' : '1';
+            }
+        }
+    }
+
+    // Remainder is last k bits
+    printf("Remainder: ");
+    for (int i = ml; i < ml + k; i++) {
+        printf("%c", temp[i]);
+    }
+    printf("\n");
+
+    // Final transmitted codeword = original msg + remainder
+    for (int i = ml; i < ml + k; i++) {
+        code[i] = temp[i];
+    }
+    code[ml + k] = '\0';
+    printf("Transmitted Codeword: %s\n", code);
+
+    // Receiver side check
+    strcpy(temp, code);
+    for (int i = 0; i < ml; i++) {
+        if (temp[i] == '1') {
+            for (int j = 0; j < gl; j++) {
+                temp[i + j] = (temp[i + j] == gen[j]) ? '0' : '1';
+            }
+        }
+    }
+
+    int error = 0;
+    for (int i = ml; i < ml + k; i++) {
+        if (temp[i] != '0') {
+            error = 1;
+            break;
+        }
+    }
+
+    if (error)
+        printf("Error detected during transmission!\n");
+    else
+        printf("Transmission successful! No error detected.\n");
+
+    return 0;
+}
+
+
+Leaky Bucket
 
 #include <stdio.h>
 void lb1(){
@@ -185,3 +468,4 @@ int main() {
 
     return 0;
 }
+
