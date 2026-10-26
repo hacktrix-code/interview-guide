@@ -1,0 +1,33 @@
+import java.util.*;
+import java.awt.image.*;
+import javax.imageio.*;
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        BufferedImage img = ImageIO.read(new File("input.png"));
+
+        System.out.print("Enter text: ");
+        String msg = sc.nextLine();
+        int k = 0;
+
+        for (int i = 0; i < img.getWidth() && k < msg.length(); i++)
+            for (int j = 0; j < img.getHeight() && k < msg.length(); j++) {
+                int p = img.getRGB(i, j);
+                img.setRGB(i, j, (p & 0xFFFFFF00) | msg.charAt(k++));
+            }
+
+        ImageIO.write(img, "png", new File("output.png"));
+
+        img = ImageIO.read(new File("output.png"));
+        String s = "";
+
+        for (int i = 0; i < img.getWidth() && s.length() < msg.length(); i++)
+            for (int j = 0; j < img.getHeight() && s.length() < msg.length(); j++)
+                s += (char)(img.getRGB(i, j) & 255);
+
+        System.out.println("Hidden Message: " + msg);
+        System.out.println("Retrieved Message: " + s);
+    }
+}
