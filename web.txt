@@ -1,0 +1,47 @@
+# 1. Study of Different Types of Vulnerabilities for Hacking Websites / Web Applications
+
+### Aim
+
+To study the different types of security vulnerabilities found in websites and web applications.
+
+### Introduction
+
+A vulnerability is a weakness in a website or web application that attackers may exploit to gain unauthorized access, steal information, or damage the system.
+
+### Types of Web Application Vulnerabilities
+
+1\. SQL Injection: An attacker inserts malicious SQL commands into input fields to access or modify database information.
+
+2\. Cross-Site Scripting (XSS): An attacker injects malicious scripts into a webpage, which may run in another user's browser.
+
+3\. Cross-Site Request Forgery (CSRF): Tricks a logged-in user’s browser into performing unwanted actions on a website.
+
+4\. Broken Authentication: Weak login or password mechanisms allow attackers to gain unauthorized access to user accounts.
+
+5\. Broken Access Control: Users can access information or perform actions that they are not authorized to access or perform.
+
+6\. Security Misconfiguration: Incorrect security settings, default passwords, or unnecessary services make a website vulnerable to attacks.
+
+7\. Sensitive Data Exposure: Personal information, passwords, or financial data are exposed due to poor security measures.
+
+8\. File Inclusion Vulnerability: Improper handling of file paths may allow attackers to access unauthorized files or execute unintended code.
+
+9\. Directory Traversal: An attacker manipulates file paths to access files outside the permitted directory.
+
+10\. Denial of Service (DoS): An attacker overloads a website with requests, making it slow or unavailable to legitimate users.
+
+### Prevention Methods
+
+- Use secure coding practices and validate user inputs.
+- Use parameterized SQL queries to prevent SQL injection.
+- Apply proper authentication and access control.
+- Keep software and security patches updated.
+- Use HTTPS to protect data during transmission.
+- Configure firewalls and monitor suspicious activity.
+- Perform regular security testing and vulnerability assessments.
+
+### Result
+
+The different types of security vulnerabilities in websites and web applications and their prevention methods were studied.
+
+Note: This is a general, exam-ready answer. I couldn't retrieve readable content from your uploaded material, so this version is based on general cybersecurity knowledge.
