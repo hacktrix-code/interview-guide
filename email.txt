@@ -1,0 +1,48 @@
+## 4. Analysis of the Security Vulnerabilities on E-Mail Application
+
+### Aim
+
+To study and analyze the different security vulnerabilities found in e-mail applications and their prevention methods.
+
+### Introduction
+
+E-mail security protects messages, attachments, and personal information from unauthorized access, attacks, and misuse.
+
+### Types of Security Vulnerabilities
+
+1\. Phishing: Attackers send fake e-mails to trick users into revealing passwords or banking details.
+
+2\. Spam E-mails: Unwanted e-mails may contain advertisements, harmful links, or malicious attachments.
+
+3\. Malware Attachments: E-mail attachments may contain viruses, worms, or other malicious software.
+
+4\. E-mail Spoofing: Attackers forge the sender's address to make an e-mail appear to come from a trusted person.
+
+5\. Weak Passwords: Easy-to-guess passwords allow attackers to access e-mail accounts.
+
+6\. Eavesdropping: Attackers may try to read e-mails when they are transmitted without proper encryption.
+
+7\. Account Hijacking: Attackers gain unauthorized access to an e-mail account and misuse it.
+
+8\. Data Leakage: Sensitive information may be exposed by sending confidential data to the wrong person or through an insecure account.
+
+9\. Social Engineering: Attackers manipulate users into sharing confidential information or performing unsafe actions.
+
+10\. Denial of Service (DoS): An attacker may flood an e-mail service with excessive messages or requests, disrupting its operation.
+
+### Prevention Methods
+
+1. Use strong and unique passwords.
+2. Enable two-factor authentication (2FA).
+3. Avoid opening suspicious e-mails and attachments.
+4. Do not click unknown or suspicious links.
+5. Use spam filters and antivirus software.
+6. Use encrypted connections and e-mail encryption where appropriate.
+7. Keep the e-mail application and operating system updated.
+8. Verify the sender before sharing sensitive information.
+9. Log out when using a shared computer.
+10. Never share passwords or confidential information through suspicious e-mails.
+
+### Result
+
+The security vulnerabilities of e-mail applications and their prevention methods were studied.
