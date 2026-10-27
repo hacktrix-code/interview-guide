@@ -1,0 +1,35 @@
+## Steps to Ensure Security of a Web Browser (Mozilla Firefox)
+
+### Aim
+
+To study the security features of a web browser and learn the steps to improve the security of Mozilla Firefox.
+
+### Browser Security
+
+Browser security is important for protecting personal information and the computer from malware, unsafe websites, and online tracking.
+
+### Steps to Ensure Security
+
+1\. Open Firefox Settings: Open Mozilla Firefox, click the three-line menu at the top-right corner, and select Settings.
+
+2\. Control Downloads: Under the General section, go to Downloads and select Always ask you where to save files. This helps prevent unwanted automatic downloads.
+
+3\. Enable Tracking Protection: Open the Privacy and Security section and enable tracking protection to reduce tracking by websites and advertisers.
+
+4\. Manage Browsing History: Under History, choose the required history settings. Private browsing can be used to avoid saving browsing history in the normal way.
+
+5\. Clear Cookies: Delete cookies when necessary to reduce stored personal information and prevent unwanted tracking.
+
+6\. Block Third-Party Cookies: Block third-party cookies to reduce tracking by advertisers and other websites.
+
+7\. Check Browser Extensions: Install extensions only from trusted sources and remove unnecessary or suspicious add-ons.
+
+8\. Enable Security Warnings: Ensure that security options are enabled so Firefox can warn you about potentially dangerous websites and downloads.
+
+9\. Protect Saved Logins: Avoid saving passwords on shared computers. Use a strong master password if that feature is available in your Firefox version.
+
+10\. Keep Firefox Updated: Install browser updates regularly to fix security vulnerabilities.
+
+### Result
+
+The security features of Mozilla Firefox were studied, and the steps to improve browser security and protect personal information were learned.
