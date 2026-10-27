@@ -1,0 +1,36 @@
+## (b) Study of the features of Firewall in providing Network Security and to set Firewall Security in Windows
+
+### Aim
+
+To study the features of a firewall in providing network security and to configure firewall security in Windows.
+
+### Features of Firewall
+
+A firewall is a security system that monitors and controls incoming and outgoing network traffic. It protects a computer from unauthorized access and harmful network connections.
+
+1. Inbound Traffic Filtering: Blocks unwanted connections coming from other computers.
+2. Outbound Traffic Filtering: Controls the traffic going out from our computer.
+3. Application Control: Allows or blocks specific programs from accessing the network.
+4. Network Profiles: Windows provides three network profiles:
+   - Public: Used for public networks like Wi-Fi in railway stations or cafes.
+   - Private (Home/Work): Used for trusted home or office networks.
+   - Domain: Used in organizations connected to a domain network.
+5. Firewall Rules: Windows Firewall with Advanced Security allows rules based on protocols, ports, IP addresses, and authentication.
+6. Stealth Feature: Helps prevent other computers from identifying the operating system through certain network techniques.
+7. Boot-Time Filtering: Ensures firewall protection starts when the network interface becomes active.
+8. Exception Handling: Allows trusted programs to communicate through the firewall when necessary.
+
+### Steps to Set Firewall Security in Windows
+
+1. Click the Start button.
+2. Open Control Panel.
+3. Select Windows Firewall.
+4. Check whether the firewall is turned on.
+5. Enable the firewall for Private and Public networks.
+6. To allow a program, click Allow a program or feature through Windows Firewall.
+7. Select the required program and choose the appropriate network.
+8. Click OK to save the settings.
+
+### Result
+
+The features of Windows Firewall were studied, and the steps to configure firewall security in Windows were learned.
